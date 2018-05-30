@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block tittle %}{{titulo}}{% endblock %}
+{% block content %}
+<div class = "container">
+	<div class="row">
+		<div class="col-lg-8 col-offset-2">
+			<h1 style="margin-top:30px;">{{titulo}}</h1>		
+			<form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+				{% bootstrap_form form %}
+				<input type="submit" value="Enviar" class="btn btn-primary btn-lg btn-block" href="{% url 'index' %}">
+			</form>
+		</div>
+
+	</div>	
+</div>
+
+{% endblock %}
