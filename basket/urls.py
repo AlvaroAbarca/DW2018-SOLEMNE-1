@@ -21,6 +21,6 @@ urlpatterns = [
 
 	path('add_nomina',views.add_nomina, name= "add_nomina"),
 	path('list_nomina',views.list_nomina, name= "list_nomina"),
-	path('edit_nomina',views.edit_nomina, name= "edit_nomina"),
-	path('delete_nomina',views.delete_nomina, name= "delete_nomina"),
+	path('edit_nomina/<int:coach_id>',views.edit_nomina, name= "edit_nomina"),
+	path('delete_nomina/<int:coach_id>',views.delete_nomina, name= "delete_nomina"),
 ]
