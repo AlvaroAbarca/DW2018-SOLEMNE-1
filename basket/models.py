@@ -51,3 +51,12 @@ class Coach(models.Model):
     def __str__(self):
         return self.name
 
+class Payroll(models.Model):
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    coach = models.ForeignKey(Coach, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    date = models.DateField()
+    time = models.TimeField()
+
+    def _str_(self):
+        return self.name

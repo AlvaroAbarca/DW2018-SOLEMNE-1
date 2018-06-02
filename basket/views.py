@@ -151,6 +151,52 @@ def delete_coach(request,Coach_id):
     data = {}
     template_name = 'add.html'
     data['titulo'] = 'Eliminar Coach'
-    instance = Team.objects.get(pk=coach_id).delete()   
+    instance = Coach.objects.get(pk=coach_id).delete()   
     #return render(request,template_name,data)
     return redirect('list_coach')
+
+def add_nomina(request):
+    data = {}
+    data['titulo'] = 'Crear Nomina'
+    if request.method == "POST":
+        data['form'] = PayrollForm(request.POST)
+        if data['form'].is_valid():
+            data ['form'].save()
+    else:
+        data['form'] = PayrollForm()
+    template_name = 'add.html'
+
+    return render (request, template_name, data)
+
+def list_nomina(request):
+    data = {}
+
+    data['inicio'] = 'Lista Nominas'
+
+    # SELECT * FROM player
+    data['object_list'] = Payroll.objects.all()
+    
+    template_name = 'list_payroll.html'
+    return render(request, template_name, data)
+
+def  edit_nomina(request,nomina_id):
+    data = {}
+    template_name = 'add.html'
+    data['titulo'] = 'Editar Coach'
+    instance = Payroll.objects.get(pk=nomina_id)
+    if request.method == "POST":
+        data['form'] = PayrollForm(request.POST, instance = instance)
+        if data['form'].is_valid():
+            data ['form'].save()
+            return redirect('list_nomina')
+    else:
+        data['form'] = PayrollForm(instance = instance)
+    return render(request,template_name,data)
+
+def delete_nomina(request,nomina_id):
+    data = {}
+    template_name = 'add.html'
+    data['titulo'] = 'Eliminar Nomina'
+    instance = Payroll.objects.get(pk=nomina_id).delete()   
+    #return render(request,template_name,data)
+    return redirect('list_nomina')
