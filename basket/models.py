@@ -1,6 +1,8 @@
 from django.db import models
 from basket.defines import POSITION_PLAYER_CHOICES
-
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Team(models.Model):
     name = models.CharField(max_length=120)
@@ -34,6 +36,7 @@ class Player(models.Model):
 
 
 class Coach(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
     name = models.CharField(max_length=120)
     age = models.PositiveIntegerField()
     email = models.EmailField()
@@ -47,3 +50,4 @@ class Coach(models.Model):
         return '{}-{}' . format(self.rut, self.dv)
     def __str__(self):
         return self.name
+

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from basket.models import *
 from basket.forms import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -7,10 +7,15 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/auth/login')
 def index(request):
-	data = {}
-	data['inicio'] = 'Bienvenidos a la plataforma DW-2018'
-	template_name = 'index.html'
-	return render(request,template_name,data)
+    data = {}
+    us = request.user
+    #profile = User.objects.get(user = us)
+    data['inicio'] = 'Bienvenidos a la plataforma DW-2018'
+    #if profile.is_staff :
+    template_name = 'index.html'
+    #else: 
+        #template_name = 'index_coach.html'
+    return render(request,template_name,data)
 
 def list_player(request):
     data = {}
@@ -45,7 +50,7 @@ def  edit_player(request,player_id):
         data['form'] = PlayerForm(request.POST, instance = instance)
         if data['form'].is_valid():
             data ['form'].save()
-            return redirect('list_asignatura')
+            return redirect('list_player')
     else:
         data['form'] = PlayerForm(instance = instance)
     return render(request,template_name,data)

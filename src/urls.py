@@ -26,4 +26,5 @@ urlpatterns = [
     path('basket/',include('basket.urls'), name='basket'),
     path('auth/', include('auth_login.urls'), name='auth'),
     path('', RedirectView.as_view(url='/auth/login', permanent=False), name='index_auth'),
+    
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

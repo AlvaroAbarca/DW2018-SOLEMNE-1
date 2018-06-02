@@ -15,4 +15,9 @@ class TeamForm(ModelForm):
 class CoachForm(ModelForm):
 	class Meta:
 		model = Coach
-		fields = ['rut','dv','name','age','email','nickname','team']		
+		fields = ['rut','dv','name','age','email','nickname','team','user']
+
+class UserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']

@@ -5,25 +5,23 @@ from django.utils.safestring import mark_safe
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
-	list_display = ('name','description','_thumbnail','code')
+	list_display = ('name','description','thumb','code')
 	list_filter = ('name','description','logo','code',)
 	search_fields = ['name','description','logo','code',]
-	def _thumbnail(self, obj):
-		if obj.log:
-			return mark_safe(u'<img src="/media/%s" alt="" width="50" height="50" />' % (obj.log))
-		else:
-			return "[No Image]"
+	
+	def thumb(self, obj):
+		return mark_safe(u'<img src="%s" style="width:10px;height:10px;"/>' \
+			% (obj.picture.url))
 
 @admin.register(Player)
 class PlayerAdmin(admin.ModelAdmin):
-	list_display = ('name','nickname','birthday','age','rut','email','height','weight','_thumbnail','position')
+	list_display = ('name','nickname','birthday','age','rut','email','height','weight','thumb','position')
 	list_filter = ('name','nickname','birthday','age','rut','email','height','weight','picture','position')
 	search_fields = ['name','nickname','birthday','age','rut','email','height','weight','picture','position']
-	def _thumbnail(self, obj):
-		if obj.photo:
-			return mark_safe(u'<img src="/media/%s" alt="" width="50" height="50"/>' % (obj.photo))
-		else:
-			return "[No Image]"
+	
+	def thumb(self, obj):
+		return mark_safe(u'<img src="%s" style="width:100px;height:100px;"/>' \
+			% (obj.picture.url))
 
 @admin.register(Coach)
 class Coach_admin(admin.ModelAdmin):
